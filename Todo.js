@@ -5,6 +5,7 @@ import {
   TouchableOpacity, 
   StyleSheet,
   Dimensions,
+  TextInput,
 } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -12,7 +13,8 @@ const { width, height } = Dimensions.get('window');
 export default class ToDo extends Component {
   state = {
     isEditing: false,
-    isCompleted: false
+    isCompleted: false,
+    toDoValue: ''
   }
 
   _toggleComplete = () => {
@@ -24,8 +26,10 @@ export default class ToDo extends Component {
   }
 
   _startEditing = () => {
+    const { text } = this.props;
     this.setState({
-      isEditing: true
+      isEditing: true,
+      toDoValue: text
     });
   }
 
@@ -35,8 +39,16 @@ export default class ToDo extends Component {
     });
   }
 
+  _controlInput = text => {
+    this.setState({
+      toDoValue: text
+    });
+  }
+
   render() {
-    const { isCompleted, isEditing } = this.state;
+    const { isCompleted, isEditing, toDoValue } = this.state;
+    const { text } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.column}>
@@ -48,11 +60,29 @@ export default class ToDo extends Component {
               ]} 
             />
           </TouchableOpacity>
+         {isEditing ? (
+          <TextInput
+            style={[
+              styles.input,
+              styles.text, 
+              isCompleted ? styles.completedText : styles.uncompletedText
+            ]} 
+            value={toDoValue} 
+            multiline
+            onChangeText={this._controlInput}
+            returnKeyType={'done'}
+            onBlur={this._finishEditing}
+          />
+         ) : (
           <Text 
-            style={[styles.text, isCompleted ? styles.completedText : styles.uncompletedText]}
+            style={[
+              styles.text, 
+              isCompleted ? styles.completedText : styles.uncompletedText
+            ]}
           >
-            Hello I'm a ToDo 
+            Hello, I'm a To Do 
           </Text>
+         )}
         </View>
         {isEditing ? (
           <View style={styles.actions}>
@@ -114,7 +144,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through'
   },
   uncompletedText: {
-    color: '#353535'
+    color: '#353839'
   },
   column: {
     flexDirection: 'row',
@@ -128,5 +158,9 @@ const styles = StyleSheet.create({
   actionContainer: {
     marginVertical: 10,
     marginHorizontal: 10
+  },
+  input: {
+    marginVertical: 20,
+    width: width / 2
   }
 });
