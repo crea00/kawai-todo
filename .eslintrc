@@ -1,14 +1,6 @@
 {
-    "parserOptions": {
-        "ecmaVersion": 7,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
-    "plugins": [
-        "react",
-        "react-native"
-      ],
-    "extends": "airbnb-base/legacy"
+  "extends": "rallycoding",
+  "rules": {
+    "arrow-body-style": 0
+  }
 }

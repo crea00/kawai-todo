@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 export default class App extends React.Component {
   render() {
@@ -18,7 +18,7 @@ export default class App extends React.Component {
         <StatusBar barStyle="light-content" />
         <Text style={styles.title}>Kawai Todo</Text>
         <View style={styles.card}>
-          <TextInput style={styles.input} placeholder={"New To Do"} />
+          <TextInput style={styles.input} placeholder={'New To Do'} />
         </View>
       </View>
     );
